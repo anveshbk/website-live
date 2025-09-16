@@ -159,6 +159,32 @@
       width: 24px;
       height: 24px;
     }
+
+    /* Dark Mode styles */
+    body.dark-mode {
+      background: #1A1A1A; /* Dark background for entire screen */
+      color: #FFFFFF;
+    }
+
+    body.dark-mode .main-content {
+      background: #1A1A1A; /* Dark card background */
+    }
+
+    body.dark-mode .h-line,
+    body.dark-mode .side-line {
+      background-color: #555555;
+    }
+
+    body.dark-mode .header-title,
+    body.dark-mode .desc-text,
+    body.dark-mode .social-btn {
+      color: #FFFFFF;
+    }
+
+    body.dark-mode .social-btn {
+      background: rgba(85, 85, 85, 0.2);
+      border: 1px solid rgba(85, 85, 85, 0.8);
+    }
   </style>
 </head>
 <body>
@@ -181,15 +207,15 @@
     </div>
     <div class="social-row">
       <a href="https://x.com/anveshbhat" target="_blank" class="social-btn">
-        <img src="https://friconix.com/png/fi-xnsuxl-twitter-solid.svg" alt="Twitter Icon">
+        <img src="twitterlogo.png" alt="Twitter Icon">
         @anvesh_bhat
       </a>
       <a href="https://www.linkedin.com/in/anveshbhat/" target="_blank" class="social-btn">
-        <img src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="LinkedIn Icon">
+        <img src="linkedinlogoo.png" alt="LinkedIn Icon">
         Anvesh Bhat
       </a>
       <a href="mailto:me@anveshbhat.in" class="social-btn">
-        <img src="https://www.svgrepo.com/show/509206/mail.svg" alt="Email Icon">
+        <img src="maillogo.png" alt="Email Icon">
         me@anveshbhat.in
       </a>
     </div>
@@ -198,15 +224,22 @@
   <script>
     const themeToggleIcon = document.getElementById('theme-toggle-icon');
     const body = document.body;
-    const lightModeIcon = 'https://www.untitledui.com/icons/moon-01.svg';
-    const darkModeIcon = 'https://www.svgrepo.com/show/453205/sun.svg'; // Sun icon for dark mode
+    const lightModeIcon = 'light.png';
+    const darkModeIcon = 'dark.png'; // Sun icon for dark mode
 
-    // Check for saved theme preference
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
+    // Check for saved theme preference or system preference
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let initialTheme = localStorage.getItem('theme');
+
+    if (!initialTheme) {
+      initialTheme = prefersDarkMode ? 'dark' : 'light';
+    }
+
+    if (initialTheme === 'dark') {
       body.classList.add('dark-mode');
       themeToggleIcon.src = darkModeIcon;
     } else {
+      body.classList.remove('dark-mode');
       themeToggleIcon.src = lightModeIcon;
     }
 
